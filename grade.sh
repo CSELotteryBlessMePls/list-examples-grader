@@ -29,15 +29,15 @@ then
     echo "compiled fine"
     java -cp ".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore TestListExamples > errors.txt
     ERROR=$(grep "FAILURES" errors.txt)
-    if [[ $? -eq 0 ]]
+    if [[ $ERROR == "FAILURES!!!" ]]
     then
-        echo "Tests Passed! Congrats!"
-        exit  
+        echo "failed"
+        echo "errors:"
+        cat errors.txt
+        exit 
     fi
-    echo "failed"
-    echo "errors:"
-    cat errors.txt
-    exit 
+    echo "Tests Passed! Congrats!"
+    exit
 else
     cat compile-output.txt
     echo "compile error"
